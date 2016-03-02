@@ -1,0 +1,64 @@
+  This README discusses the usage of Bluetooth script file (BTS), a binary 
+  file format that contains actions and commands for Texas Instruments
+  Bluetooth devices. In addition to describing the file format specifications, 
+  this README also explains about its naming convention and specifies which 
+  bts file to use for each of Texas Instruments Bluetooth devices.
+
+WHAT IS A BTS FILE?
+
+  BTS is an abbreviation for Bluetooth script. The BTS file is a binary file 
+  that contains commands and actions for Texas Instruments' Bluetooth devices.
+  HCI communication is a two-way street. For each HCI command sent from the 
+  host to a BT device, the BT device responds with an HCI event. In order to
+  simplify the format and procedures required to successfully execute these 
+  HCI commands, the BTS format is used. The BTS file consists of mandatory
+  initialization scripts and additional platform-dependent, optional
+  commands that are primarily used in the Bluetooth device initialization.
+  The BTS file can be run either as a .bts file placed in the file system, 
+  or be converted into a memory array in C language that can then be integrated
+  into the code of the entire system. 
+
+  BTS files are distributed under TEXAS INSTRUMENTS LICENSE - see the
+  accompanying LICENSE file for more details. 
+
+BTS FUNCTIONALITY
+
+  The primary usage of the BTS format is to run the initialization script
+  after the Bluetooth device powers up. The initialization script must be
+  executed after every device power-up. BTS initialization scripts contain
+  a section of memory write commands (written code to RAM) that perform as
+  a software patch to fix potential ROM issues of the BT device.
+  Although this is the primary purpose of the BTS format, it can also be 
+  used in any scenario to load HCI commands to the Bluetooth device. BTS files
+  may also be used for platform-related commands such as to enable deep-sleep
+  mechanism, changing UART baud rate, audio configurations, etc.
+
+BTS NAMING FORMAT
+
+  Each initialization script corresponds to a single TI BT chip and firmware
+  ROM version. These versions are indicated in the name of the initialization 
+  script. The naming conventions of the TI BT chips are TIInit_X.Y.Z.bts,
+  where:
+  
+  X = Product Name
+  Y = ROM SW Major Number
+  Z = ROM SW Minor Number
+  
+  6.6.15	= 	CC256xA Product, 6.15 ROM Version
+  6.7.16 	= 	CC256xB Product, 7.16 ROM Version
+  7.6.15 	= 	WL127x Product, 6.15 ROM Version
+  10.6.15 	= 	WL128x, 6.15 ROM Version
+  11.8.32 	= 	WL180x, WL183x, WL185x PG2.1 or PG2.2, 8.32 ROM Version
+  12.8.32 	= 	WL187x PG2.1 or PG2.2, 8.32 ROM Version
+  12.10.28 	= 	WL18xxQ PG1.11, 10.28 ROM Version
+  
+  Exception is the initialization files of CC256xA/B devices which are 
+  provided as three separate bts files: 
+  
+  TIInit_6.7.16_bt_spec_4.x.bts - BT main bts file 
+  TIInit_6.7.16_ble_add-on.bts - BLE functionality add-on
+  TIInit_6.7.16_avpr_add-on.bts - AVPR (WBS, Assisted A2DP) functionality add-On
+  
+  For additional details, please refer to: 
+  http://processors.wiki.ti.com/index.php/CC256x_Downloads
+  

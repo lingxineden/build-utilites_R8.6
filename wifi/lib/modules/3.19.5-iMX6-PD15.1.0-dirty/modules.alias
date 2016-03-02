@@ -1,0 +1,5 @@
+# Aliases extracted from modules themselves.
+alias net-pf-16-proto-16-family-nl80211 cfg80211
+alias sdio:c*v0097d4076* wlcore_sdio
+alias platform:wl18xx wl18xx
+alias platform:wl12xx wl12xx

@@ -1,0 +1,27 @@
+From 05107c60eafefe545a510df228468f1ca2a1ab95 Mon Sep 17 00:00:00 2001
+From: Eliad Peller <eliad@wizery.com>
+Date: Mon, 27 Apr 2015 12:44:18 +0300
+Subject: [PATCH 15/16] apply backport SmPL patch
+ collateral-evolutions/network/0056-ndo_features_check/features_check.cocci
+
+---
+ drivers/net/ethernet/intel/igb/igb_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 0b9ad47..60daea8 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -2123,7 +2123,9 @@ static const struct net_device_ops igb_netdev_ops = {
+ #endif
+ 	.ndo_fix_features	= igb_fix_features,
+ 	.ndo_set_features	= igb_set_features,
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,19,0)
+ 	.ndo_features_check	= passthru_features_check,
++#endif /* LINUX_VERSION_CODE >= KERNEL_VERSION(3,19,0) */
+ };
+ 
+ /**
+-- 
+1.8.5.2.229.g4448466.dirty
+
